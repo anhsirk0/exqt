@@ -21,7 +21,7 @@ my %SCRIPTS = (
 
 sub main {
     my $file = shift @ARGV;
-    error_exit("No file provided") unless($file);
+    print_help_and_exit() if (!$file || $file eq "-h" || $file eq "--help");
     error_exit("File '$file' does not exist") unless(-f $file);
     my ($name, $ext) = $file =~ /(.*)\.([a-zA-Z0-9]+)$/;
     my $code = 0; # Return code
@@ -51,6 +51,15 @@ sub main {
         $code = system($cmd, $file, @ARGV);
     }
     error_exit("Failed to execute '$file'") if ($code != 0);
+}
+
+sub print_help_and_exit {
+    printf(
+        "%s\n\n%s\n\n",
+        colored("exqt", "green") . "\nSimple code runner script.",
+        colored("USAGE:", "yellow") . "\n\t" . "exqt <FILE> [ARGS]",
+        );
+    exit();
 }
 
 sub error_exit {
