@@ -1,0 +1,24 @@
+* EXQT - simple code runner script
++ Git repo on Codeberg: <https://codeberg.org/anhsirk0/exqt>
+  - Mirrors:
+    + GitHub: <https://github.com/anhsirk0/exqt>
+
+* Installation
+Its just a perl script
+download it make it executable and put somewhere in your $PATH
+** Downloading the script
+#+BEGIN_SRC shell
+curl https://codeberg.org/anhsirk0/exqt/raw/branch/main/exqt.pl --output exqt
+#+END_SRC
+** Making it executable
+#+BEGIN_SRC shell
+chmod +x exqt
+#+END_SRC
+** Copying it to $PATH
+#+BEGIN_SRC shell
+cp exqt ~/.local/bin/
+#+END_SRC
+* Usage
+#+BEGIN_SRC shell
+exqt <FILE> <ARGS>
+#+END_SRC
