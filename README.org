@@ -22,3 +22,25 @@ cp exqt ~/.local/bin/
 #+BEGIN_SRC shell
 exqt <FILE> <ARGS>
 #+END_SRC
+* Examples
+test.c
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main(int argc, char **argv) {
+    printf("Number of args: %d\n", argc);
+    for (int i = 0; i < argc; i++) {
+        printf("arg %d: %s\n", i, argv[i]);
+    }
+    return 0;
+}
+#+END_SRC
+running it with =exqt=
+#+BEGIN_SRC text
+$ exqt test.c arg1 arg2 arg3
+Number of args: 4
+arg 0: ./exqt_test.out
+arg 1: arg1
+arg 2: arg2
+arg 3: arg3
+#+END_SRC
