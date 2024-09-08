@@ -22,17 +22,17 @@ my %SCRIPTS = (
 sub main {
     my $file = shift @ARGV;
     print_help_and_exit() if (!$file || $file eq "-h" || $file eq "--help");
-    error_exit("File '$file' does not exist") unless(-f $file);
+    error_exit("File '$file' does not exist") unless -f $file;
     my ($name, $ext) = $file =~ /(.*)\.([a-zA-Z0-9]+)$/;
     my $code = 0; # Return code
     my $bin = "exqt_$name.out"; # binary executable name
 
     if ($ext eq "c") {
         $code = system("gcc", $file, "-o", $bin);
-        run_compile($bin) if($code == 0);
+        run_compile($bin) if $code == 0;
     } elsif ($ext eq "cpp") {
         $code = system("g++", $file, "-o", $bin);
-        run_compile($bin) if($code == 0);
+        run_compile($bin) if $code == 0;
     } elsif ($ext eq "java") {
         $code = system("javac", $file);
         if (-f "$name.class") {
@@ -41,16 +41,16 @@ sub main {
         }
     } elsif ($ext eq "odin") {
         $code = system("odin", "build", $file, "-file");
-        run_compile($name) if($code == 0);
+        run_compile($name) if $code == 0;
     } elsif ($ext eq "rs") {
         $code = system("rustc", $file);
-        run_compile($name) if($code == 0);
+        run_compile($name) if $code == 0;
     } else {
         my $cmd = $SCRIPTS{$ext};
-        error_exit("Could not determine how to execute '$file'") unless($cmd);
+        error_exit("Could not determine how to execute '$file'") unless $cmd;
         $code = system($cmd, $file, @ARGV);
     }
-    error_exit("Failed to execute '$file'") if ($code != 0);
+    error_exit("Failed to execute '$file'") if $code != 0;
 }
 
 sub print_help_and_exit {
